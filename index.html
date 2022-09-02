@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>⚔️ Elden Ring Idol!</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.0-beta1 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.0.96/css/materialdesignicons.min.css"
+    integrity="sha512-fXnjLwoVZ01NUqS/7G5kAnhXNXat6v7e3M9PhoMHOTARUMCaf5qNO84r5x9AFf5HDzm3rEZD8sb/n6dZ19SzFA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+
+<body>
+  <header class="container">
+    <div class="col-12 d-flex justify-content-center">
+      <p class="fs-1">Elden Ring</p>
+      <p class="fst-italic">Idol</p>
+    </div>
+    <!-- place navbar here -->
+  </header>
+  <main class="container">
+    <section class="row pt-5">
+      <div class="col-3 col-height border bg-light bg-opacity-25 rounded">
+        <!-- Stats -->
+        <h1>Stats</h1>
+        <h3>Rune Generater</h3>
+        <h5>Runes per click: <p id="runesperclick">1</p>
+        </h5>
+        <h5>Runes per second: <p id="runespersecond"></p>
+        </h5>
+        <h3>Weapons</h3>
+        <div id="drawWeapons"></div>
+        <h3>Ashes</h3>
+        <div id="drawAshes"></div>
+
+
+      </div>
+      <!-- Rune Icon -->
+      <div class="col-5 text-center">
+        <img src="https://styles.redditmedia.com/t5_122hf1/styles/communityIcon_h04bgma6k1p81.png"
+          class="img-size rounded-5" onclick="farm()" alt="runes">
+      </div>
+      <div class="col-4 col-height border bg-light bg-opacity-25 rounded">
+        <!-- Rune Count and Upgrades -->
+        <h1>Runes: <p id="runes">0</p>
+        </h1>
+        <h1>Upgrades</h1>
+        <h3>Weapons(click upgrades):</h3>
+        <div onclick="buyWeapon('Dark Moon Greatsword')" class="fs-5 d-flex">Dark Moon Greatsword_<div class="d-flex">
+            Cost:_
+            <div id="DMweaponCost">5</div>
+          </div>
+        </div>
+        <h5 onclick="buyWeapon('Sword of Night and Flame')" class="fs-5 d-flex">Sword of Night and Flame <div
+            class="d-flex">
+            Cost:_
+            <div id="SNFweaponCost">10</div>
+          </div>
+        </h5>
+        <h5 onclick="buyWeapon('Moonveil')" class="fs-5 d-flex">Moonveil <div class="d-flex">
+            Cost:_
+            <div id="MVweaponCost">20</div>
+          </div>
+        </h5>
+        <h3>Spirit Ashes(continuous runes/s)</h3>
+        <h5 onclick="buyAsh('Black Knife Tiche')" class="fs-5 d-flex">Black Knife Tiche <div class="d-flex">
+            Cost:_
+            <div id="BKTashCost">20</div>
+          </div>
+        </h5>
+        <h5 onclick="buyAsh('Mimic Tear')" class="fs-5 d-flex">Mimic Tear <div class="d-flex">
+            Cost:_
+            <div id="MTashCost">20</div>
+          </div>
+        </h5>
+        <h5 onclick="buyAsh('Dung Eater Puppet')" class="fs-5 d-flex">Dung Eater Puppet <div class="d-flex">
+            Cost:_
+            <div id="DEPashCost">20</div>
+          </div>
+        </h5>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+    integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous">
+    </script>
+  <script src="app.js"></script>
+</body>
+
+</html>

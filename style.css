@@ -1,0 +1,23 @@
+.img-size {
+  max-width: 40vh;
+  max-height: 40vh;
+}
+
+.col-height {
+  min-height: 70vh;
+}
+
+@font-face {
+  font-family: Elden;
+  src: local('Mantinia Regular.otf'), url('Mantinia Regular.otf') format('otf');
+}
+
+body {
+
+  font-family: Elden;
+  background-image: url('https://d2ofqe7l47306o.cloudfront.net/games/1440x900/elden-ring-12.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fdebeb;
+}
