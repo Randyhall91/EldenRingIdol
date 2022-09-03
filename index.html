@@ -1,5 +1,17 @@
 <!doctype html>
 <html lang="en">
+<!-- TODO 
+    Change Weapons/ashes to buttons
+    Change ashes to just add damage for boss fights
+    Add Bosses that grant Great Runes on defeat
+    Great Runes now generate runes instead of ashes
+
+    Draw weapons based off Great Runes aquired
+    Draw first boss if 2 weapons are aquired
+    Draw the next off great runes aquired
+
+
+   -->
 
 <head>
   <title>⚔️ Elden Ring Idol!</title>
@@ -21,15 +33,15 @@
 
 <body>
   <header class="container">
+    <!-- place navbar here -->
     <div class="col-12 d-flex justify-content-center">
       <p class="fs-1">Elden Ring</p>
       <p class="fst-italic">Idol</p>
     </div>
-    <!-- place navbar here -->
   </header>
   <main class="container">
     <section class="row pt-5">
-      <div class="col-3 col-height border bg-light bg-opacity-25 rounded">
+      <div class="col-3 col-height border bg-light bg-opacity-50 rounded">
         <!-- Stats -->
         <h1>Stats</h1>
         <h3>Rune Generater</h3>
@@ -37,10 +49,13 @@
         </h5>
         <h5>Runes per second: <p id="runespersecond"></p>
         </h5>
-        <h3>Weapons</h3>
-        <div id="drawWeapons"></div>
-        <h3>Ashes</h3>
-        <div id="drawAshes"></div>
+        <!-- Draw Weapons equipped -->
+        <div id="equippedWeapons">
+          <h3>Weapons Equipped (Max of 2)</h3>
+          <div id="drawWeaponsStatus"></div>
+        </div>
+        <h3>Ashes Max of 2</h3>
+        <div id="drawAshesStatus"></div>
 
 
       </div>
@@ -49,46 +64,26 @@
         <img src="https://styles.redditmedia.com/t5_122hf1/styles/communityIcon_h04bgma6k1p81.png"
           class="img-size rounded-5" onclick="farm()" alt="runes">
       </div>
-      <div class="col-4 col-height border bg-light bg-opacity-25 rounded">
+      <div class="col-4 col-height border bg-light bg-opacity-50 rounded">
         <!-- Rune Count and Upgrades -->
         <h1>Runes: <p id="runes">0</p>
         </h1>
         <h1>Upgrades</h1>
+        <!-- Draw Weapons -->
         <h3>Weapons(click upgrades):</h3>
-        <div onclick="buyWeapon('Dark Moon Greatsword')" class="fs-5 d-flex">Dark Moon Greatsword_<div class="d-flex">
-            Cost:_
-            <div id="DMweaponCost">5</div>
-          </div>
-        </div>
-        <h5 onclick="buyWeapon('Sword of Night and Flame')" class="fs-5 d-flex">Sword of Night and Flame <div
-            class="d-flex">
-            Cost:_
-            <div id="SNFweaponCost">10</div>
-          </div>
-        </h5>
-        <h5 onclick="buyWeapon('Moonveil')" class="fs-5 d-flex">Moonveil <div class="d-flex">
-            Cost:_
-            <div id="MVweaponCost">20</div>
-          </div>
-        </h5>
-        <h3>Spirit Ashes(continuous runes/s)</h3>
-        <h5 onclick="buyAsh('Black Knife Tiche')" class="fs-5 d-flex">Black Knife Tiche <div class="d-flex">
-            Cost:_
-            <div id="BKTashCost">20</div>
-          </div>
-        </h5>
-        <h5 onclick="buyAsh('Mimic Tear')" class="fs-5 d-flex">Mimic Tear <div class="d-flex">
-            Cost:_
-            <div id="MTashCost">20</div>
-          </div>
-        </h5>
-        <h5 onclick="buyAsh('Dung Eater Puppet')" class="fs-5 d-flex">Dung Eater Puppet <div class="d-flex">
-            Cost:_
-            <div id="DEPashCost">20</div>
-          </div>
-        </h5>
+        <div id="drawWeapon"></div>
 
+        <!-- Draw Ashes on aquiring 1 Great Rune -->
+        <h3>Spirit Ashes minor rune generation</h3>
+        <div id="drawAsh"></div>
+
+        <!-- Draw Bosses -->
+        <h3>Boss Fights! Grant Great Runes for Great(er) rune generation</h3>
+        <div id="drawBoss"></div>
       </div>
+    </section>
+    <section class="footer">
+      <!-- Draw Combat on Boss Fight (BIG stretch Goal) -->
     </section>
 
   </main>
