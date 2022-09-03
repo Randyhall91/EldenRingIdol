@@ -1,7 +1,8 @@
 let rune = 0
 let runesPerClick = 1
 let ashperSecond = 0
-let equipped = 0
+let equippedWeapon = 0
+let equippedAsh = 0
 let greatRune = 0
 let bossesDefeated = 0
 // TODO 
@@ -21,16 +22,8 @@ const weapons = [
     max: 2,
     cost: 1,
     runemultiplier: 1,
+    isWeapon: 'weapon',
     starter: true
-  },
-  {
-    name: "Dark Moon Greatsword",
-    quantity: 0,
-    max: 2,
-    cost: 5,
-    runemultiplier: 5,
-    starter: false,
-    reward: 2
   },
   {
     name: "Sword of Night and Flame",
@@ -38,16 +31,28 @@ const weapons = [
     cost: 10,
     max: 2,
     runemultiplier: 7,
-    starter: false,
+    starter: 'weapon',
+    isWeapon: true,
     reward: 1
   },
   {
-    name: "Moonveil",
+    name: "Grafted Blade Greatsword",
+    quantity: 0,
+    max: 2,
+    cost: 5,
+    runemultiplier: 10,
+    starter: 'weapon',
+    isWeapon: true,
+    reward: 2
+  },
+  {
+    name: "Starscourge Greatsword",
     quantity: 0,
     cost: 20,
     max: 2,
-    runemultiplier: 10,
-    starter: false,
+    runemultiplier: 12,
+    starter: 'weapon',
+    isWeapon: true,
     reward: 3
   }
 ]
@@ -58,6 +63,7 @@ const ashes = [
     runepersecond: 2,
     cost: 3,
     reward: 0,
+    isAsh: 'ash',
     starter: true
   },
   {
@@ -66,6 +72,7 @@ const ashes = [
     runepersecond: 3,
     cost: 3,
     reward: 1,
+    isAsh: 'ash',
     starter: false
   },
   {
@@ -74,6 +81,7 @@ const ashes = [
     runepersecond: 4,
     cost: 4,
     reward: 2,
+    isAsh: 'ash',
     starter: false
   },
   {
@@ -82,6 +90,7 @@ const ashes = [
     runepersecond: 5,
     cost: 50,
     reward: 3,
+    isAsh: 'ash',
     starter: false
   }
 ]
@@ -231,9 +240,9 @@ function buyWeapon(weapon) {
   const boughtweapon = weapons.find(w => w.name == weapon)
 
   // @ts-ignore
-  if (equipped >= 2) {
+  if (equippedWeapon >= 2) {
     // @ts-ignore
-    equipped = 2
+    equippedWeapon = 2
     return
   }
   // @ts-ignore
@@ -242,8 +251,8 @@ function buyWeapon(weapon) {
     rune -= boughtweapon.cost
     // @ts-ignore
     boughtweapon.quantity++
-    equipped++
-    console.log(equipped);
+    equippedWeapon++
+    console.log(equippedWeapon);
     // @ts-ignore
     // console.log('you bought a weapon!', boughtweapon.name);
     // @ts-ignore
@@ -343,21 +352,14 @@ function drawWeaponsStatus() {
   weapons.forEach(w => {
     if (w.quantity > 0) {
       template += `
-      <h5>${w.name} Quantity: <p>${w.quantity}</p></h5>
-      <button onclick="unequip('${w.name}')" class="btn btn-danger">Unequip</button>
+      <h5>${w.name} Quantity: ${w.quantity}</h5>
+      <button onclick="unequip('${w.name}', '${w.isWeapon}')" class="btn btn-danger">Unequip</button>
       `
     }
     // @ts-ignore
     weapon.innerHTML = template
   })
 
-}
-function unequip(weapon) {
-  const wep = weapons.find(w => w.name == weapon)
-  // @ts-ignore
-  wep.quantity--
-  equipped--
-  update()
 }
 //NOTE UPDATE to Great rune status
 function drawAshesStatus() {
@@ -366,13 +368,34 @@ function drawAshesStatus() {
   ashes.forEach(a => {
     if (a.quantity > 0) {
       template += `
-      <h5>${a.name} Quantity: <p>${a.quantity}</p></h5>
+      <h5>${a.name} Quantity: ${a.quantity}</h5>
+      <button onclick="unequip('${a.name}', '${a.isAsh}')" class="btn btn-danger">Unequip</button>
       `
     }
     // @ts-ignore
     ash.innerHTML = template
   })
 }
+//SECTION Unequip Items
+function unequip(item, type) {
+  if (type = 'weapon') {
+    const weapon = weapons.find(w => w.name == item)
+    console.log(weapon.name);
+    // @ts-ignore
+    weapon.quantity--
+    equippedWeapon--
+  }
+
+  if (type = 'ash') {
+    const ash = ashes.find(a => a.name == item)
+    console.log(ash.name);
+    // @ts-ignore
+    ash.quantity--
+    equippedAsh--
+  }
+  update()
+}
+
 
 
 //TODO set max ashes to 2, add dissmiss button for ashes
