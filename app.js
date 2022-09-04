@@ -10,7 +10,7 @@ let cumalitivedmg = 0
 //Add damage #s to weapons and ashes
 // disable boss purchase on defeat
 //shouldn't need to set max great runes at that point
-//
+// Add damage delt to screen above combat imgs
 
 
 const weapons = [
