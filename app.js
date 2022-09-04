@@ -11,6 +11,9 @@ let cumalitivedmg = 0
 // disable boss purchase on defeat
 //shouldn't need to set max great runes at that point
 // Add damage delt to screen above combat imgs
+//Play with design a little more.
+//Delay update till combat is 'over'
+//DOn't give great runes on failure
 
 
 const weapons = [
