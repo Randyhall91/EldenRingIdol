@@ -1,4 +1,4 @@
-let rune = 0
+let rune = 100
 let runesPerClick = 1
 let ashperSecond = 0
 let equippedWeapon = 0
@@ -7,13 +7,14 @@ let greatRune = 0
 let bossesDefeated = 0
 let cumalitivedmg = 0
 // TODO 
-//Add damage #s to weapons and ashes
-// disable boss purchase on defeat
+//Add damage #s to weapons and ashes take out ash runes/s
+// disable boss purchase on defeat WIP
 //shouldn't need to set max great runes at that point
 // Add damage delt to screen above combat imgs
 //Play with design a little more.
 //Delay update till combat is 'over'
 //DOn't give great runes on failure
+//Creat New Game + button for teacher testing
 
 
 const weapons = [
@@ -210,37 +211,34 @@ function drawBoss() {
   bosses.forEach(b => {
     if (b.starter == true) {
       template += `
-    <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+    <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
     `
     }
     if (greatRune >= 1) {
       if (b.reward == 1)
         template += `
-        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+        <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
         `
     }
     if (greatRune >= 2) {
       if (b.reward == 2)
         template += `
-        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+        <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
         `
     }
     if (greatRune >= 3) {
       if (b.reward == 3)
         template += `
-        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+        <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
         `
     }
-
   })
   boss.innerHTML = template
 }
-
-
 
 
 
@@ -294,7 +292,7 @@ function buyBoss(boss) {
   if (rune >= boughtBoss.cost) {
     rune -= boughtBoss.cost
 
-    greatRune++
+
     boughtBoss.defeated = true
 
     fight(boughtBoss.name)
@@ -307,8 +305,9 @@ function fight(bossname) {
   const boss = bosses.find(b => b.name == bossname)
   bossname = boss.name
   fightIntro(bossname)
-  setTimeout(() => { fightResults(boss); }, 5000);
+  setTimeout(() => { fightResults(boss.name); }, 5000);
   fightDmg()
+  update()
 
 }
 function fightIntro(name) {
@@ -355,8 +354,9 @@ function fightDmg() {
   })
   console.log(cumalitivedmg);
 }
-function fightResults(boss) {
+function fightResults(name) {
   let template = ''
+  const boss = bosses.find(b => b.name == name)
   boss.health -= cumalitivedmg
   if (boss.health <= 0) {
     console.log('Victory!');
@@ -367,7 +367,9 @@ function fightResults(boss) {
       
       `
     victory.innerHTML = template
-
+    greatRune++
+    boss.defeated == true
+    // console.log(boss.name, boss.defeated);
   }
 
 
@@ -379,8 +381,23 @@ function fightResults(boss) {
     death.innerHTML = template
   }
 }
+//TODO IF Dead only disabled Margit???
+function ifDead() {
+
+  const addDisable = document.getElementById('ifDead')
+
+  const bosskill = bosses.forEach(b => {
+    // @ts-ignore
+    if (b.defeated == true) {
+      addDisable.setAttribute("disabled", '')
+      // console.log(b.name, 'killed');
+      // console.log(b.name, b.defeated);
+    }
+
+  });
 
 
+}
 
 
 
@@ -503,6 +520,7 @@ function update() {
   drawAshesStatus()
   drawAsh()
   drawBoss()
+
 }
 update()
 
