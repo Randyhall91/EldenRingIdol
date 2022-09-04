@@ -41,11 +41,13 @@
   </header>
   <main class="container">
     <section class="row pt-5">
-      <div class="col-3 col-height border bg-light bg-opacity-50 rounded">
+      <div class="col-4 col-height border bg-light bg-opacity-50 rounded">
         <!-- Stats -->
         <h1>Stats</h1>
         <h3>Rune Generater</h3>
         <h5>Runes per click: <p id="runesperclick">1</p>
+        </h5>
+        <h5>Great Runes Aquired: <p id="greatRunes"></p>
         </h5>
         <h5>Runes per second: <p id="runespersecond"></p>
         </h5>
@@ -62,9 +64,10 @@
 
       </div>
       <!-- Rune Icon -->
-      <div class="col-5 text-center">
+      <div class="col-4 text-center">
         <img src="https://styles.redditmedia.com/t5_122hf1/styles/communityIcon_h04bgma6k1p81.png"
           class="img-size rounded-5" onclick="farm()" alt="runes">
+        <div class="text-center m-3" id="bossfight"> </div>
       </div>
       <div class="col-4 col-height border bg-light bg-opacity-50 rounded">
         <!-- Rune Count and Upgrades -->
@@ -72,11 +75,11 @@
         </h1>
         <h1>Upgrades</h1>
         <!-- Draw Weapons -->
-        <h3>Weapons(click upgrades):</h3>
+        <h3>Weapons(click upgrades + dmg):</h3>
         <div id="drawWeapon"></div>
 
         <!-- Draw Ashes on aquiring 1 Great Rune -->
-        <h3>Spirit Ashes minor rune generation</h3>
+        <h3>Spirit Ashes minor rune gen + dmg</h3>
         <div id="drawAsh"></div>
 
         <!-- Draw Bosses -->
@@ -84,9 +87,7 @@
         <div id="drawBoss"></div>
       </div>
     </section>
-    <section class="footer">
-      <!-- Draw Combat on Boss Fight (BIG stretch Goal) -->
-    </section>
+
 
   </main>
 

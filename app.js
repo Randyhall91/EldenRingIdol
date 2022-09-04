@@ -5,54 +5,53 @@ let equippedWeapon = 0
 let equippedAsh = 0
 let greatRune = 0
 let bossesDefeated = 0
+let cumalitivedmg = 0
 // TODO 
-//     Change Weapons / ashes to buttons
-//     Change ashes to just add damage for boss fights
-//     Add Bosses that grant Great Runes on defeat
-//     Great Runes now generate runes instead of ashes
+//Add damage #s to weapons and ashes
+// disable boss purchase on defeat
+//shouldn't need to set max great runes at that point
+//
 
-//     Draw weapons based off Great Runes aquired
-//     Draw first boss if 2 weapons are aquired
-//     Draw the next off great runes aquired
 
 const weapons = [
   {
     name: "Basic Sword",
     quantity: 0,
     max: 2,
-    cost: 1,
+    cost: 5,
     runemultiplier: 1,
-    isWeapon: 'weapon',
-    starter: true
+    damage: 5,
+    starter: true,
+    reward: 0
   },
   {
     name: "Sword of Night and Flame",
     quantity: 0,
-    cost: 10,
+    cost: 15,
     max: 2,
     runemultiplier: 7,
-    starter: 'weapon',
-    isWeapon: true,
+    starter: false,
+    damage: 10,
     reward: 1
   },
   {
     name: "Grafted Blade Greatsword",
     quantity: 0,
     max: 2,
-    cost: 5,
-    runemultiplier: 10,
-    starter: 'weapon',
-    isWeapon: true,
+    cost: 45,
+    runemultiplier: 15,
+    starter: false,
+    damage: 25,
     reward: 2
   },
   {
     name: "Starscourge Greatsword",
     quantity: 0,
-    cost: 20,
+    cost: 90,
     max: 2,
-    runemultiplier: 12,
-    starter: 'weapon',
-    isWeapon: true,
+    runemultiplier: 20,
+    starter: false,
+    damage: 50,
     reward: 3
   }
 ]
@@ -61,36 +60,36 @@ const ashes = [
     name: "Wolves",
     quantity: 0,
     runepersecond: 2,
-    cost: 3,
+    cost: 20,
     reward: 0,
-    isAsh: 'ash',
+    damage: 1,
     starter: true
   },
   {
     name: "Black Knife Tiche",
     quantity: 0,
     runepersecond: 3,
-    cost: 3,
+    cost: 50,
     reward: 1,
-    isAsh: 'ash',
+    damage: 2,
     starter: false
   },
   {
     name: "Mimic Tear",
     quantity: 0,
     runepersecond: 4,
-    cost: 4,
+    cost: 100,
     reward: 2,
-    isAsh: 'ash',
+    damage: 5,
     starter: false
   },
   {
     name: "Dung Eater Puppet",
     quantity: 0,
     runepersecond: 5,
-    cost: 50,
+    cost: 250,
     reward: 3,
-    isAsh: 'ash',
+    damage: 10,
     starter: false
   }
 ]
@@ -99,19 +98,25 @@ const bosses = [
     name: "Margit, the Fell Omen",
     cost: 50,
     starter: true,
-    reward: 0
+    reward: 0,
+    defeated: false,
+    health: 35
   },
   {
     name: "Godrick the Grafted",
-    cost: 150,
+    cost: 200,
     starter: false,
-    reward: 1
+    reward: 1,
+    defeated: false,
+    health: 75
   },
   {
     name: "Starscourge Radahn",
-    cost: 250,
+    cost: 500,
     starter: false,
-    reward: 2
+    reward: 2,
+    defeated: false,
+    health: 175
   }
 ]
 //SECTION Draw Weapon Upgrades
@@ -195,34 +200,35 @@ function drawAsh() {
 
 }
 // SECTION Draw Bosses
+//TODO make button disable on defeat
 function drawBoss() {
   let template = ''
   let boss = document.getElementById('drawBoss')
   bosses.forEach(b => {
     if (b.starter == true) {
       template += `
-    <button onclick="buyBoss('${b.name}')" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+    <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
         </button>
     `
     }
     if (greatRune >= 1) {
       if (b.reward == 1)
         template += `
-        <button onclick="buyBoss('${b.name}')" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
         </button>
         `
     }
     if (greatRune >= 2) {
       if (b.reward == 2)
         template += `
-        <button onclick="buyBoss('${b.name}')" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
         </button>
         `
     }
     if (greatRune >= 3) {
       if (b.reward == 3)
         template += `
-        <button onclick="buyBoss('${b.name}')" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
+        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost}
         </button>
         `
     }
@@ -252,26 +258,19 @@ function buyWeapon(weapon) {
     // @ts-ignore
     boughtweapon.quantity++
     equippedWeapon++
-    console.log(equippedWeapon);
     // @ts-ignore
-    // console.log('you bought a weapon!', boughtweapon.name);
-    // @ts-ignore
-    if (boughtweapon.quantity >= 1) {
+    if (boughtweapon.quantity == 1) {
       // @ts-ignore
       boughtweapon.cost += 20
-      // @ts-ignore
-
-      // console.log('cost of', boughtweapon.name, boughtweapon.cost);
     }
   }
   update()
 }
-
-
 function buyAsh(ash) {
   const boughtash = ashes.find(a => a.name == ash)
   // @ts-ignore
-  if (boughtash.quantity >= 2) {
+  if (equippedAsh >= 1) {
+    equippedAsh = 1
     return
   }
   if (rune >= boughtash.cost) {
@@ -279,14 +278,12 @@ function buyAsh(ash) {
     rune -= boughtash.cost
     // @ts-ignore
     boughtash.quantity++
-    // @ts-ignore
-    console.log('you bought a Ash!', boughtash.name);
+    equippedAsh++
   }
-  // @ts-ignore
+
 
   update()
 }
-
 function buyBoss(boss) {
   const boughtBoss = bosses.find(b => b.name == boss)
 
@@ -295,11 +292,90 @@ function buyBoss(boss) {
     rune -= boughtBoss.cost
 
     greatRune++
+    boughtBoss.defeated = true
 
+    fight(boughtBoss.name)
   }
   update()
 }
 
+//SECTION Combat
+function fight(bossname) {
+  const boss = bosses.find(b => b.name == bossname)
+  bossname = boss.name
+  fightIntro(bossname)
+  setTimeout(() => { fightResults(boss); }, 5000);
+  fightDmg()
+
+}
+function fightIntro(name) {
+  let template = ''
+  const boss = bosses.find(b => b.name == name)
+  console.log(boss.name);
+  if (boss.name == 'Margit, the Fell Omen') {
+    let bossimg = document.getElementById('bossfight')
+    template += `
+      <img class="img-fluid" src="assets/Margit_salute.gif" alt="">`
+    bossimg.innerHTML = template
+  }
+  if (boss.name == 'Godrick the Grafted') {
+    let bossimg = document.getElementById('bossfight')
+    template += `
+      <img class="img-fluid" src="assets/godrick.gif" alt="">`
+    bossimg.innerHTML = template
+  }
+
+  if (boss.name == 'Starscourge Radahn') {
+    let bossimg = document.getElementById('bossfight')
+    template += `
+      <img class="img-fluid" src="assets/Starscourge.gif" alt="">`
+    bossimg.innerHTML = template
+  }
+
+}
+function fightDmg() {
+
+  const heldweapons = weapons.forEach(w => {
+    for (let i = 0; i <= 10; i++) {
+      if (w.quantity >= 1) {
+        cumalitivedmg += (Math.floor((Math.random() * w.damage) + 1))
+      }
+    }
+  })
+  const summonedashes = ashes.forEach(a => {
+    for (let i = 0; i <= 10; i++) {
+      if (a.quantity >= 1) {
+        cumalitivedmg += (Math.floor((Math.random() * a.damage) + 1))
+      }
+    }
+
+  })
+  console.log(cumalitivedmg);
+}
+function fightResults(boss) {
+  let template = ''
+  boss.health -= cumalitivedmg
+  if (boss.health <= 0) {
+    console.log('Victory!');
+
+    let victory = document.getElementById('bossfight')
+    template += `
+      <img class="img-fluid" src="assets/Enemy_felled.gif" alt="">
+      
+      `
+    victory.innerHTML = template
+
+  }
+
+
+  if (boss.health > 0) {
+    console.log('You Died!');
+    let death = document.getElementById('bossfight')
+    template += `
+    <img class="img-fluid" src="assets/youdied.gif" alt="">`
+    death.innerHTML = template
+  }
+}
 
 
 
@@ -353,7 +429,7 @@ function drawWeaponsStatus() {
     if (w.quantity > 0) {
       template += `
       <h5>${w.name} Quantity: ${w.quantity}</h5>
-      <button onclick="unequip('${w.name}', '${w.isWeapon}')" class="btn btn-danger">Unequip</button>
+      <button onclick="unequipWeapon('${w.name}')" class="btn btn-danger">Unequip</button>
       `
     }
     // @ts-ignore
@@ -369,7 +445,7 @@ function drawAshesStatus() {
     if (a.quantity > 0) {
       template += `
       <h5>${a.name} Quantity: ${a.quantity}</h5>
-      <button onclick="unequip('${a.name}', '${a.isAsh}')" class="btn btn-danger">Unequip</button>
+      <button onclick="unequipAsh('${a.name}')" class="btn btn-danger">Unequip</button>
       `
     }
     // @ts-ignore
@@ -377,29 +453,27 @@ function drawAshesStatus() {
   })
 }
 //SECTION Unequip Items
-function unequip(item, type) {
-  if (type = 'weapon') {
-    const weapon = weapons.find(w => w.name == item)
-    console.log(weapon.name);
-    // @ts-ignore
-    weapon.quantity--
-    equippedWeapon--
-  }
+function unequipWeapon(item) {
+  const wep = weapons.find(w => w.name == item)
+  // console.log(wep.name);
 
-  if (type = 'ash') {
-    const ash = ashes.find(a => a.name == item)
-    console.log(ash.name);
-    // @ts-ignore
-    ash.quantity--
-    equippedAsh--
-  }
+  // @ts-ignor
+  wep.quantity--
+  equippedWeapon--
+
+  update()
+}
+function unequipAsh(item) {
+  const ash = ashes.find(a => a.name == item)
+  // console.log(ash.name);
+
+  // @ts-ignor
+  ash.quantity--
+  equippedAsh--
+
   update()
 }
 
-
-
-//TODO set max ashes to 2, add dissmiss button for ashes
-// Balance 
 
 
 
@@ -418,6 +492,9 @@ function update() {
   let perash = document.getElementById('runespersecond')
   // @ts-ignore
   perash.innerText = ashperSecond
+  let greatRunes = document.getElementById('greatRunes')
+  // @ts-ignore
+  greatRunes.innerHTML = greatRune
   drawWeaponsStatus()
   drawWeapon()
   drawAshesStatus()
@@ -425,3 +502,4 @@ function update() {
   drawBoss()
 }
 update()
+
