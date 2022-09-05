@@ -1,6 +1,6 @@
-let rune = 100
+let rune = 0
 let runesPerClick = 1
-let ashperSecond = 0
+let runesPerSecond = 0
 let equippedWeapon = 0
 let equippedAsh = 0
 let greatRune = 0
@@ -8,13 +8,16 @@ let bossesDefeated = 0
 let cumalitivedmg = 0
 // TODO 
 //Add damage #s to weapons and ashes take out ash runes/s
-// disable boss purchase on defeat WIP
+
+
+// disable boss purchase on defeat WIP-not working
 //shouldn't need to set max great runes at that point
+
+
+
 // Add damage delt to screen above combat imgs
 //Play with design a little more.
 //Delay update till combat is 'over'
-//DOn't give great runes on failure
-//Creat New Game + button for teacher testing
 
 
 const weapons = [
@@ -210,31 +213,39 @@ function drawBoss() {
   let boss = document.getElementById('drawBoss')
   bosses.forEach(b => {
     if (b.starter == true) {
-      template += `
-    <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
+      if (b.defeated == false) {
+
+        template += `
+        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
-    `
+        `
+      }
     }
     if (greatRune >= 1) {
-      if (b.reward == 1)
-        template += `
-        <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
-        </button>
-        `
+      if (b.reward == 1) {
+        if (b.defeated == false) {
+          template += `
+          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
+          </button>
+          `
+        }
+      }
     }
     if (greatRune >= 2) {
-      if (b.reward == 2)
-        template += `
-        <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
-        </button>
-        `
+      if (b.reward == 2) {
+        if (b.defeated == false) {
+          template += `
+          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
+        }
+      }
     }
     if (greatRune >= 3) {
-      if (b.reward == 3)
-        template += `
-        <button onclick="buyBoss('${b.name}')" type="button" id="ifDead" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
-        </button>
-        `
+      if (b.reward == 3) {
+        if (b.defeated == false) {
+          template += `
+          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
+        }
+      }
     }
   })
   boss.innerHTML = template
@@ -430,12 +441,13 @@ function runeFarm() {
   if (greatRune >= 1) {
     sum += greatRune * 10
   }
-  ashes.forEach(ash => {
-    if (ash.quantity > 0) {
-      sum += ash.runepersecond * ash.quantity
-    }
-  })
-  ashperSecond = sum
+  runesPerSecond = sum
+  // ashes.forEach(ash => {
+  //   if (ash.quantity > 0) {
+  //     sum += ash.runepersecond * ash.quantity
+  //   }
+  // })
+  // ashperSecond = sum
   rune += sum
 
   update()
@@ -495,7 +507,14 @@ function unequipAsh(item) {
 }
 
 
-
+function newGame() {
+  rune = 1000
+  let wep = weapons.find(w => w.name == 'Starscourge Greatsword')
+  wep.quantity += 2
+  let ash = ashes.find(a => a.name == 'Dung Eater Puppet')
+  ash.quantity += 2
+  update()
+}
 
 
 //SECTION Update
@@ -509,9 +528,9 @@ function update() {
   let perclick = document.getElementById('runesperclick')
   // @ts-ignore
   perclick.innerText = runesPerClick
-  let perash = document.getElementById('runespersecond')
+  let runessecond = document.getElementById('runespersecond')
   // @ts-ignore
-  perash.innerText = ashperSecond
+  runessecond.innerText = runesPerSecond
   let greatRunes = document.getElementById('greatRunes')
   // @ts-ignore
   greatRunes.innerHTML = greatRune
