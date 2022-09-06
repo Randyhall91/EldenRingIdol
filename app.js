@@ -8,9 +8,6 @@ let bossesDefeated = 0
 let cumalitivedmg = 0
 let attempt = 0
 let totaldmg = 0
-// TODO 
-// disable boss purchase on defeat WIP-not working
-//shouldn't need to set max great runes at that point
 
 
 
@@ -226,34 +223,33 @@ function drawAsh() {
 
 }
 // SECTION Draw Bosses
-//TODO make button disable on defeat
 function drawBoss() {
   let template = ''
   let boss = document.getElementById('drawBoss')
   bosses.forEach(b => {
     if (b.starter == true) {
       template += `
-        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
+        <button onclick="buyBoss('${b.name}')" type="button" ${b.defeated ? 'disabled' : ''} class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
         `
     }
     if (greatRune >= 1) {
       if (b.reward == 1) {
         template += `
-          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
+          <button onclick="buyBoss('${b.name}')" type="button" ${b.defeated ? 'disabled' : ''} class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
           </button>          `
       }
     }
     if (greatRune >= 2) {
       if (b.reward == 2) {
         template += `
-          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
+          <button onclick="buyBoss('${b.name}')" type="button" ${b.defeated ? 'disabled' : ''} class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
       }
     }
     if (greatRune >= 3) {
       if (b.reward == 3) {
         template += `
-          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
+          <button onclick="buyBoss('${b.name}')" type="button" ${b.defeated ? 'disabled' : ''} class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
       }
 
     }
@@ -283,7 +279,7 @@ function buyWeapon(weapon) {
     // @ts-ignore
     if (boughtweapon.quantity == 1) {
       // @ts-ignore
-      boughtweapon.cost += 20
+      boughtweapon.cost *= 2
     }
     totaldmg += boughtweapon.damage
   }
@@ -315,14 +311,12 @@ function buyBoss(boss) {
 
   if (rune >= boughtBoss.cost) {
     rune -= boughtBoss.cost
-
-
-    boughtBoss.defeated = true
-
     fight(boughtBoss.name)
   }
   update()
 }
+
+
 
 //SECTION Combat
 function fight(bossname) {
@@ -358,9 +352,6 @@ function fightIntro(name) {
   }
 
 }
-
-
-
 function fightDmg() {
   let wepdmg = 0
   let ashdmg = 0
@@ -371,7 +362,7 @@ function fightDmg() {
       for (let i = 0; i <= 10; i++) {
         wepdmg += (Math.floor((Math.random() * w.damage) + 1))
         if (attempt >= 1) {
-          let attemptHelp = wepdmg * (Math.floor(1 + (attempt / 15)))
+          let attemptHelp = wepdmg * (1 + (attempt / 15))
           wepdmg = attemptHelp
           console.log(attemptHelp, 'after attempt');
         }
@@ -392,8 +383,6 @@ function fightDmg() {
   cumalitivedmg = ashdmg + wepdmg
   console.log(cumalitivedmg, "to boss");
 }
-
-
 function fightResults(name) {
   let template = ''
   const boss = bosses.find(b => b.name == name)
@@ -413,7 +402,8 @@ function fightResults(name) {
       `
     victory.innerHTML = template
     greatRune++
-    boss.defeated == true
+    boss.defeated = true
+    console.log(boss.defeated);
     attempt = 0
 
     update()
@@ -434,25 +424,6 @@ function fightResults(name) {
   // console.log(cumalitivedmg, 'dmg reset to 0');
   resetBossHealth(boss.name)
 }
-
-
-//TODO IF Dead only disabled Margit???
-// function ifDead() {
-
-//   const addDisable = document.getElementById('ifDead')
-
-//   const bosskill = bosses.forEach(b => {
-//     // @ts-ignore
-//     if (b.defeated == true) {
-
-//       addDisable.setAttribute("disabled", '')
-//       // console.log(b);
-//     }
-
-//   })
-
-
-// }
 
 
 
@@ -581,16 +552,6 @@ function unequipAsh(item) {
 }
 
 
-// function newGame() {
-//   rune = 1000
-//   let wep = weapons.find(w => w.name == 'Starscourge Greatsword')
-//   wep.quantity += 2
-//   equippedWeapon += 2
-//   let ash = ashes.find(a => a.name == 'Dung Eater Puppet')
-//   ash.quantity += 1
-//   equippedAsh += 1
-//   update()
-// }
 
 
 //SECTION Update
@@ -611,4 +572,3 @@ function update() {
 
 }
 update()
-
