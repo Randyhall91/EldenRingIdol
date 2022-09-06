@@ -153,28 +153,28 @@ function drawWeapon() {
   weapons.forEach(w => {
     if (w.starter == true) {
       template += `
-    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-info my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
+    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-secondary my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
         </button>
     `
     }
     if (greatRune >= 1) {
       if (w.reward == 1)
         template += `
-    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-info my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
+    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-secondary my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
         </button>
     `
     }
     if (greatRune >= 2) {
       if (w.reward == 2)
         template += `
-    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-info my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
+    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-secondary my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
         </button>
     `
     }
     if (greatRune >= 3) {
       if (w.reward == 3)
         template += `
-    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-info my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
+    <button onclick="buyWeapon('${w.name}')" class="fs-5 d-flex btn btn-secondary my-1">${w.name} | Cost: ${w.cost} | Dmg : ${w.damage}
         </button>
     `
     }
@@ -192,28 +192,28 @@ function drawAsh() {
   ashes.forEach(a => {
     if (a.starter == true) {
       template += `
-    <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-info my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
+    <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-dark my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
         </button>
     `
     }
     if (greatRune >= 1) {
       if (a.reward == 1)
         template += `
-        <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-info my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
+        <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-dark my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
         </button>
         `
     }
     if (greatRune >= 2) {
       if (a.reward == 2)
         template += `
-    <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-info my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
+    <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-dark my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
         </button>
         `
     }
     if (greatRune >= 3) {
       if (a.reward == 3)
         template += `
-        <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-info my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
+        <button onclick="buyAsh('${a.name}')" class="fs-5 d-flex btn btn-dark my-1">${a.name} | Cost: ${a.cost} | Dmg : ${a.damage}
         </button>
         `
     }
@@ -233,68 +233,34 @@ function drawBoss() {
   bosses.forEach(b => {
     if (b.starter == true) {
       template += `
-        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
+        <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
         </button>
         `
     }
     if (greatRune >= 1) {
       if (b.reward == 1) {
         template += `
-          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
+          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}
           </button>          `
       }
     }
     if (greatRune >= 2) {
       if (b.reward == 2) {
         template += `
-          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
+          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
       }
     }
     if (greatRune >= 3) {
       if (b.reward == 3) {
         template += `
-          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-info my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
+          <button onclick="buyBoss('${b.name}')" type="button" class="fs-5 d-flex btn btn-warning my-1">${b.name} | Cost: ${b.cost} | Life: ${b.health}</button> `
       }
 
     }
   })
   boss.innerHTML = template
 }
-function drawStats() {
 
-  let stats = document.getElementById('drawStats')
-  let template = `
-    <h2>Runes per Click: <strong id="runesperclick"></strong> </h2>
-        <h2>Great Runes Aquired: ${greatRune}
-        </h2>
-        <h2>Runes per second: ${runesPerSecond}
-        </h2>
-        
-        <div id="equippedWeapons">
-          <h3>Weapons x2</h3>
-          <div id="drawWeaponsStatus"></div>
-        </div>
-        <h3>Ashes x1</h3>
-        <div id="drawAshesStatus"></div>
-        <h1>Total Damage: ${Math.floor(totaldmg * .75)}*</h1>
-        <h5>*per sec avg<h5>
-  `
-  stats.innerHTML = template
-  // @ts-ignore
-  let currentrunes = document.getElementById('runes')
-  // @ts-ignore
-  currentrunes.innerHTML = rune
-  // console.log(currentrunes);
-  let perclick = document.getElementById('runesperclick')
-  // @ts-ignore
-  perclick.innerText = runesPerClick
-  // let runessecond = document.getElementById('runespersecond')
-  // // @ts-ignore
-  // runessecond.innerText = runesPerSecond
-  // let greatRunes = document.getElementById('greatRunes')
-  // // @ts-ignore
-  // greatRunes.innerHTML = greatRune
-}
 
 
 //SECTION Purchase Upgrades
@@ -521,7 +487,46 @@ function runeFarm() {
   runesUpdate()
 }
 setInterval(runeFarm, 1000)
+
+
+
+
 // SECTION Draw Weapons Ashes and # of Great Runes under Status
+function drawStats() {
+
+  let stats = document.getElementById('drawStats')
+  let template = `
+    <h2>Runes per Click: <strong id="runesperclick"></strong> </h2>
+        <h2>Great Runes Aquired: ${greatRune}
+        </h2>
+        <h2>Runes per second: ${runesPerSecond}
+        </h2>
+        
+        <div id="equippedWeapons">
+          <h3>Weapons: Max of 2</h3>
+          <div id="drawWeaponsStatus"></div>
+        </div>
+        <h3>Ashes: Max of 1</h3>
+        <div id="drawAshesStatus"></div>
+        <h1>Total Damage: ${Math.floor(totaldmg * .75)}*</h1>
+        <h5>*per sec avg<h5>
+  `
+  stats.innerHTML = template
+  // @ts-ignore
+  let currentrunes = document.getElementById('runes')
+  // @ts-ignore
+  currentrunes.innerHTML = rune
+  // console.log(currentrunes);
+  let perclick = document.getElementById('runesperclick')
+  // @ts-ignore
+  perclick.innerText = runesPerClick
+  // let runessecond = document.getElementById('runespersecond')
+  // // @ts-ignore
+  // runessecond.innerText = runesPerSecond
+  // let greatRunes = document.getElementById('greatRunes')
+  // // @ts-ignore
+  // greatRunes.innerHTML = greatRune
+}
 function drawWeaponsStatus() {
   let template = ''
   let weapon = document.getElementById('drawWeaponsStatus')
@@ -576,16 +581,16 @@ function unequipAsh(item) {
 }
 
 
-function newGame() {
-  rune = 1000
-  let wep = weapons.find(w => w.name == 'Starscourge Greatsword')
-  wep.quantity += 2
-  equippedWeapon += 2
-  let ash = ashes.find(a => a.name == 'Dung Eater Puppet')
-  ash.quantity += 1
-  equippedAsh += 1
-  update()
-}
+// function newGame() {
+//   rune = 1000
+//   let wep = weapons.find(w => w.name == 'Starscourge Greatsword')
+//   wep.quantity += 2
+//   equippedWeapon += 2
+//   let ash = ashes.find(a => a.name == 'Dung Eater Puppet')
+//   ash.quantity += 1
+//   equippedAsh += 1
+//   update()
+// }
 
 
 //SECTION Update
