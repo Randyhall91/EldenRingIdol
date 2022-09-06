@@ -24,39 +24,28 @@
   <header class="container">
     <!-- place navbar here -->
     <div class="col-12 d-flex justify-content-center">
-      <p class="fs-1">Elden Ring</p>
-      <p class="fst-italic">Idol</p>
+      <img src="assets/eldenringlogo.jpg" alt="">
+      <p class="fst-italic fs-2 fw-bold text-warning">Idol</p>
     </div>
   </header>
-  <main class="container">
+  <main class="container text-light text-opacity-75">
     <section class="row pt-5">
-      <div class="col-4 col-height border bg-light bg-opacity-50 rounded">
+      <div class="col-4 col-height bg-dark bg-opacity-50 rounded">
         <!-- Stats -->
         <h1>Stats</h1>
-        <h3>Rune Generater</h3>
-        <h5>Runes per click: <p id="runesperclick">1</p>
-        </h5>
-        <h5>Great Runes Aquired: runes=r*10/s<p id="greatRunes"></p>
-        </h5>
-        <h5>Runes per second: <p id="runespersecond"></p>
-        </h5>
-        <!-- Draw Weapons equipped -->
-        <div id="equippedWeapons">
-          <h3>Weapons x2</h3>
-          <div id="drawWeaponsStatus"></div>
-        </div>
-        <h3>Ashes x1</h3>
-        <div id="drawAshesStatus"></div>
+        <h1> Rune Generation</h3>
+
+          <div id="drawStats"></div>
+
 
 
       </div>
       <!-- Rune Icon -->
       <div class="col-4 text-center">
-        <img src="https://styles.redditmedia.com/t5_122hf1/styles/communityIcon_h04bgma6k1p81.png"
-          class="rounded-5 img-fluid" onclick="farm()" alt="runes">
+        <img src="assets/symbol.jpg" class="rounded-5 img-fluid bg-dark bg-opacity-50" onclick="farm()" alt="runes">
         <div class="text-center m-3" id="bossfight"> </div>
       </div>
-      <div class="col-4 col-height border bg-light bg-opacity-50 rounded">
+      <div class="col-4 col-height bg-dark bg-opacity-75 rounded">
         <!-- Rune Count and Upgrades -->
         <h1>Runes: <p id="runes">0</p>
         </h1>
@@ -66,7 +55,7 @@
         <div id="drawWeapon"></div>
 
         <!-- Draw Ashes on aquiring 1 Great Rune -->
-        <h3>Spirit Ashes minor rune gen + dmg</h3>
+        <h3>Spirit Ashes + dmg</h3>
         <div id="drawAsh"></div>
 
         <!-- Draw Bosses -->

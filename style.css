@@ -10,9 +10,10 @@
 body {
 
   font-family: Elden;
-  background-image: url('https://d2ofqe7l47306o.cloudfront.net/games/1440x900/elden-ring-12.jpg');
+  background-image: url('https://images5.alphacoders.com/121/1219390.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
-  color: #0a0909;
+  /* background-position: center center; */
+
+
 }
